@@ -70,7 +70,7 @@
     <Compile Include="Impl\SudokuCell.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="SudokuDesktopClientMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="SudokuForm.resx">
       <DependentUpon>SudokuForm.cs</DependentUpon>

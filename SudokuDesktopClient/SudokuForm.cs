@@ -11,15 +11,18 @@ namespace SudokuDektopClient
     {
         int gridSize;
         SudokuCell[,] gridCells;
-        readonly Random random = new Random();
+        readonly Random random;
+        bool panelSwitch;
 
         public SudokuForm()
         {
+            panelSwitch = true;
+            random=new Random();
             InitializeComponent();
-            InitializeGame(9);
+            InitializeSudokuGame(9);
         }
 
-        public void InitializeGame(int newGridSize)
+        private void InitializeSudokuGame(int newGridSize)
         {
             gridSize = newGridSize;
             sudokuPanel.Controls.Clear();
@@ -42,7 +45,7 @@ namespace SudokuDektopClient
                         Size = new Size(40, 40),
                         ForeColor = SystemColors.ControlDarkDark,
                         Location = new Point(i * 40, j * 40),
-                        BackColor = ((i / 3) + (j / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray,
+                        BackColor = ((i / (int)Math.Sqrt(gridSize)) + (j / (int)Math.Sqrt(gridSize))) % 2 == 0 ? SystemColors.Control : Color.LightGray,
                         FlatStyle = FlatStyle.Flat,
                         X = i,
                         Y = j,
@@ -59,12 +62,20 @@ namespace SudokuDektopClient
         #region ChangeGridSize
         private void SudokuGrid9x9_CheckedChanged(object sender, EventArgs e)
         {
-            InitializeGame(9);
+            if (sudokuGrid9x9.Checked)
+            {
+                ResetUIElements();
+                InitializeSudokuGame(9);
+            }
         }
 
         private void SudokuGrid4x4_CheckedChanged(object sender, EventArgs e)
         {
-            InitializeGame(4);
+            if (sudokuGrid4x4.Checked)
+            {
+                ResetUIElements();
+                InitializeSudokuGame(4);
+            }
         }
         #endregion
 
@@ -72,10 +83,10 @@ namespace SudokuDektopClient
 
         private void StartManualGameMode()
         {
-            ClearGridCells();
+            SwitchUIElements();
         }
 
-        private void LockTips()
+        private void LockUserDefinedGrid()
         {
             foreach (var cell in gridCells)
             {
@@ -93,45 +104,30 @@ namespace SudokuDektopClient
 
         private void StartLevelGameMode()
         {
+            SwitchUIElements();
+
             int hintsCount;
             if (beginnerGameMode.Checked)
             {
-                beginnerGameMode.Checked = false;
                 hintsCount = (int)((gridSize * gridSize) / 1.5);
             }
             else if (intermediateGameMode.Checked)
             {
-                intermediateGameMode.Checked = false;
                 hintsCount = (int)((gridSize * gridSize) / 2.5);
-            }
-            else if (advancedGameMode.Checked)
-            {
-                advancedGameMode.Checked = false;
-                hintsCount = (gridSize * gridSize) / 4;
             }
             else
             {
-                MessageBox.Show("Please check your gamemode");
-                return;
+                hintsCount = (gridSize * gridSize) / 4;
             }
-            GenerateSolvedSudokuGrid();
+
+            SolveSudoku(0, -1);
 
             // Assign the hints count based on the 
             // level player chosen
-            ShowRandomValuesHints(hintsCount);
+            ShowRandomHints(hintsCount);
         }
 
-        private void GenerateSolvedSudokuGrid()
-        {
-            // Clear the values in each cells
-            ClearGridCells();
-
-            // This method will be called recursively 
-            // until it finds suitable values for each cells
-            SolveSudoku(0, -1);
-        }
-
-        private void ShowRandomValuesHints(int hintsCount)
+        private void ShowRandomHints(int hintsCount)
         {
             // Show value in radom cells
             // The hints count is based on the level player choose
@@ -197,25 +193,6 @@ namespace SudokuDektopClient
             // No valid number found for the current cell, reset the cell value
             gridCells[i, j].CorrectAnswer = '0';
             return false;
-        }
-
-        private void ClearInputCells()
-        {
-            foreach (var cell in gridCells)
-            {
-                // Clear the cell only if it is not locked
-                if (cell.IsLocked == false)
-                    cell.Clear();
-            }
-        }
-
-        private void ClearGridCells()
-        {
-            foreach (var cell in gridCells)
-            {
-                cell.CorrectAnswer = default;
-                cell.Clear();
-            }
         }
 
         #region Validations
@@ -291,7 +268,87 @@ namespace SudokuDektopClient
 
         #endregion
 
-        #region Clicks/Pressed
+        #region gridCellsClearing
+
+        private void ClearInputCells()
+        {
+            foreach (var cell in gridCells)
+            {
+                // Clear the cell only if it is not locked
+                if (cell.IsLocked == false)
+                    cell.Clear();
+            }
+        }
+
+        private void ClearGridCells()
+        {
+            foreach (var cell in gridCells)
+            {
+                cell.CorrectAnswer = default;
+                cell.Clear();
+            }
+        }
+
+        #endregion
+
+        #region UIElementsHandling
+
+        private void SwitchUIElements()
+        {
+            if (panelSwitch)
+            {
+                checkGridButton.Show();
+                checkButton.Hide();
+            }
+            else
+            {
+                checkGridButton.Hide();
+                checkButton.Show();
+            }
+            //panel
+            panelSwitch = !panelSwitch;
+            sudokuPanel.Enabled = !sudokuPanel.Enabled;
+
+            //gameModee
+            gameModeGroupBox.Enabled = !gameModeGroupBox.Enabled;
+
+            //buttons under panel
+            cheatAnswerButton.Enabled = !cheatAnswerButton.Enabled;
+            resetGameButton.Enabled = !resetGameButton.Enabled;
+            clearInputButton.Enabled = !clearInputButton.Enabled;
+            checkButton.Enabled = !checkButton.Enabled;
+            checkGridButton.Enabled = !checkGridButton.Enabled;
+        }
+
+        private void PreManualSwitchUIElements()
+        {
+            checkGridButton.Enabled = !checkGridButton.Enabled;
+            sudokuPanel.Enabled = !sudokuPanel.Enabled;
+        }
+
+        private void ResetUIElements()
+        {
+            checkGridButton.Show();
+            checkButton.Hide();
+
+            //panel
+            panelSwitch = true;
+            sudokuPanel.Enabled = true;
+
+            //gameModee
+            gameModeGroupBox.Enabled = false;
+
+            //buttons under panel
+            cheatAnswerButton.Enabled = true;
+            resetGameButton.Enabled = true;
+            clearInputButton.Enabled = true;
+            checkButton.Enabled = true;
+            checkGridButton.Enabled = true;
+        }
+        
+        #endregion
+
+        #region Clicks/Presses
 
         private void CellInPanel_keyPressed(object sender, KeyPressEventArgs e)
         {
@@ -314,29 +371,20 @@ namespace SudokuDektopClient
                 {
                     cell.Text = valueEntered.ToString();
                     cell.ForeColor = SystemColors.ControlDarkDark;
-                    if (checkIfHintsAreValidButton.Visible)
-                    {
-                        cell.CorrectAnswer = valueEntered.ToString()[0];
-                    }
                 }
+                if (checkGridButton.Visible)
+                    cell.CorrectAnswer = valueEntered.ToString()[0];
             }
         }
 
-        private void CheckIfHintsAreValidButton_Click(object sender, EventArgs e)
+        private void CheckGridButton_Click(object sender, EventArgs e)
         {
-            bool validSudoku = false;
-            if (ValidateSudoku())
+            if (ValidateSudoku() && SolveSudoku(0, -1))
             {
-                validSudoku = SolveSudoku(0, -1);
-                LockTips();
-            }
-            //TODO: Check if input is valid 
-
-            if (validSudoku)
-            {
-                checkIfHintsAreValidButton.Hide();
-                solveButton.Show();
-                cheatAnswerButton.Enabled = true;
+                PreManualSwitchUIElements();
+                LockUserDefinedGrid();
+                StartManualGameMode();
+                MessageBox.Show("Game started! Good luck");
             }
             else
             {
@@ -344,41 +392,35 @@ namespace SudokuDektopClient
             }
         }
 
-        private void SolveButton_Click(object sender, EventArgs e)
+        private void CheckButton_Click(object sender, EventArgs e)
         {
             ValidateSudokuWithCorrectAnswers();
         }
 
         private void ClearInputButton_Click(object sender, EventArgs e)
         {
-            if (checkIfHintsAreValidButton.Visible)
-                ClearGridButton_Click(sender, e);
+            if (checkGridButton.Visible)
+                ResetGameButton_Click(sender, e);
             else
                 ClearInputCells();
         }
 
-        private void ClearGridButton_Click(object sender, EventArgs e)
+        private void ResetGameButton_Click(object sender, EventArgs e)
         {
             ClearGridCells();
-            if (checkIfHintsAreValidButton.Visible)
-                CreateGameButton_Click(sender, e);
+            StartManualGameMode();
         }
 
         private void CreateGameButton_Click(object sender, EventArgs e)
         {
             //CALL API
-            if (manualGameMode.Checked)
+            if (manualEntryGameMode.Checked)
             {
-                checkIfHintsAreValidButton.Show();
-                solveButton.Hide();
-                cheatAnswerButton.Enabled = false;
-                StartManualGameMode();
-                manualGameMode.Checked = false;
+                PreManualSwitchUIElements();
+                MessageBox.Show("Please manually place the question input/token in each cell");
             }
             else
-            {                checkIfHintsAreValidButton.Hide();
-                solveButton.Show();
-                cheatAnswerButton.Enabled = true;
+            {
                 StartLevelGameMode();
             }
         }
