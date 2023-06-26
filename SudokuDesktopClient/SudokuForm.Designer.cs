@@ -37,10 +37,12 @@
             this.advancedGameMode = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.sudokuGrid9x9 = new System.Windows.Forms.RadioButton();
-            this.sudokuGrid4x4 = new System.Windows.Forms.RadioButton();
+            this.sudokuGrid9x9RadioButton = new System.Windows.Forms.RadioButton();
+            this.sudokuGrid4x4RadioButton = new System.Windows.Forms.RadioButton();
             this.cheatAnswerButton = new System.Windows.Forms.Button();
             this.gridGroupBox = new System.Windows.Forms.GroupBox();
+            this.sudokuGrid25x25RadioButton = new System.Windows.Forms.RadioButton();
+            this.sudokuGrid16x16RadioButton = new System.Windows.Forms.RadioButton();
             this.resetGameButton = new System.Windows.Forms.Button();
             this.gameModeGroupBox = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -154,29 +156,29 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Grid";
             // 
-            // sudokuGrid9x9
+            // sudokuGrid9x9RadioButton
             // 
-            this.sudokuGrid9x9.AutoSize = true;
-            this.sudokuGrid9x9.Checked = true;
-            this.sudokuGrid9x9.Location = new System.Drawing.Point(23, 27);
-            this.sudokuGrid9x9.Name = "sudokuGrid9x9";
-            this.sudokuGrid9x9.Size = new System.Drawing.Size(42, 17);
-            this.sudokuGrid9x9.TabIndex = 8;
-            this.sudokuGrid9x9.TabStop = true;
-            this.sudokuGrid9x9.Text = "9x9";
-            this.sudokuGrid9x9.UseVisualStyleBackColor = true;
-            this.sudokuGrid9x9.CheckedChanged += new System.EventHandler(this.SudokuGrid9x9_CheckedChanged);
+            this.sudokuGrid9x9RadioButton.AutoSize = true;
+            this.sudokuGrid9x9RadioButton.Checked = true;
+            this.sudokuGrid9x9RadioButton.Location = new System.Drawing.Point(91, 27);
+            this.sudokuGrid9x9RadioButton.Name = "sudokuGrid9x9RadioButton";
+            this.sudokuGrid9x9RadioButton.Size = new System.Drawing.Size(42, 17);
+            this.sudokuGrid9x9RadioButton.TabIndex = 8;
+            this.sudokuGrid9x9RadioButton.TabStop = true;
+            this.sudokuGrid9x9RadioButton.Text = "9x9";
+            this.sudokuGrid9x9RadioButton.UseVisualStyleBackColor = true;
+            this.sudokuGrid9x9RadioButton.CheckedChanged += new System.EventHandler(this.SudokuGrid9x9RadioButton_CheckedChanged);
             // 
-            // sudokuGrid4x4
+            // sudokuGrid4x4RadioButton
             // 
-            this.sudokuGrid4x4.AutoSize = true;
-            this.sudokuGrid4x4.Location = new System.Drawing.Point(99, 27);
-            this.sudokuGrid4x4.Name = "sudokuGrid4x4";
-            this.sudokuGrid4x4.Size = new System.Drawing.Size(42, 17);
-            this.sudokuGrid4x4.TabIndex = 9;
-            this.sudokuGrid4x4.Text = "4x4";
-            this.sudokuGrid4x4.UseVisualStyleBackColor = true;
-            this.sudokuGrid4x4.CheckedChanged += new System.EventHandler(this.SudokuGrid4x4_CheckedChanged);
+            this.sudokuGrid4x4RadioButton.AutoSize = true;
+            this.sudokuGrid4x4RadioButton.Location = new System.Drawing.Point(23, 27);
+            this.sudokuGrid4x4RadioButton.Name = "sudokuGrid4x4RadioButton";
+            this.sudokuGrid4x4RadioButton.Size = new System.Drawing.Size(42, 17);
+            this.sudokuGrid4x4RadioButton.TabIndex = 9;
+            this.sudokuGrid4x4RadioButton.Text = "4x4";
+            this.sudokuGrid4x4RadioButton.UseVisualStyleBackColor = true;
+            this.sudokuGrid4x4RadioButton.CheckedChanged += new System.EventHandler(this.SudokuGrid4x4RadioButton_CheckedChanged);
             // 
             // cheatAnswerButton
             // 
@@ -193,14 +195,38 @@
             // 
             // gridGroupBox
             // 
+            this.gridGroupBox.Controls.Add(this.sudokuGrid25x25RadioButton);
+            this.gridGroupBox.Controls.Add(this.sudokuGrid16x16RadioButton);
             this.gridGroupBox.Controls.Add(this.label2);
-            this.gridGroupBox.Controls.Add(this.sudokuGrid9x9);
-            this.gridGroupBox.Controls.Add(this.sudokuGrid4x4);
-            this.gridGroupBox.Location = new System.Drawing.Point(402, 65);
+            this.gridGroupBox.Controls.Add(this.sudokuGrid9x9RadioButton);
+            this.gridGroupBox.Controls.Add(this.sudokuGrid4x4RadioButton);
+            this.gridGroupBox.Location = new System.Drawing.Point(402, 61);
             this.gridGroupBox.Name = "gridGroupBox";
-            this.gridGroupBox.Size = new System.Drawing.Size(156, 64);
+            this.gridGroupBox.Size = new System.Drawing.Size(156, 95);
             this.gridGroupBox.TabIndex = 11;
             this.gridGroupBox.TabStop = false;
+            // 
+            // sudokuGrid25x25RadioButton
+            // 
+            this.sudokuGrid25x25RadioButton.AutoSize = true;
+            this.sudokuGrid25x25RadioButton.Enabled = false;
+            this.sudokuGrid25x25RadioButton.Location = new System.Drawing.Point(91, 59);
+            this.sudokuGrid25x25RadioButton.Name = "sudokuGrid25x25RadioButton";
+            this.sudokuGrid25x25RadioButton.Size = new System.Drawing.Size(54, 17);
+            this.sudokuGrid25x25RadioButton.TabIndex = 11;
+            this.sudokuGrid25x25RadioButton.Text = "25x25";
+            this.sudokuGrid25x25RadioButton.UseVisualStyleBackColor = true;
+            // 
+            // sudokuGrid16x16RadioButton
+            // 
+            this.sudokuGrid16x16RadioButton.AutoSize = true;
+            this.sudokuGrid16x16RadioButton.Enabled = false;
+            this.sudokuGrid16x16RadioButton.Location = new System.Drawing.Point(23, 59);
+            this.sudokuGrid16x16RadioButton.Name = "sudokuGrid16x16RadioButton";
+            this.sudokuGrid16x16RadioButton.Size = new System.Drawing.Size(54, 17);
+            this.sudokuGrid16x16RadioButton.TabIndex = 10;
+            this.sudokuGrid16x16RadioButton.Text = "16x16";
+            this.sudokuGrid16x16RadioButton.UseVisualStyleBackColor = true;
             // 
             // resetGameButton
             // 
@@ -225,7 +251,7 @@
             this.gameModeGroupBox.Controls.Add(this.intermediateGameMode);
             this.gameModeGroupBox.Controls.Add(this.advancedGameMode);
             this.gameModeGroupBox.Enabled = false;
-            this.gameModeGroupBox.Location = new System.Drawing.Point(402, 171);
+            this.gameModeGroupBox.Location = new System.Drawing.Point(402, 175);
             this.gameModeGroupBox.Name = "gameModeGroupBox";
             this.gameModeGroupBox.Size = new System.Drawing.Size(156, 223);
             this.gameModeGroupBox.TabIndex = 0;
@@ -314,8 +340,8 @@
         private System.Windows.Forms.RadioButton advancedGameMode;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton sudokuGrid9x9;
-        private System.Windows.Forms.RadioButton sudokuGrid4x4;
+        private System.Windows.Forms.RadioButton sudokuGrid9x9RadioButton;
+        private System.Windows.Forms.RadioButton sudokuGrid4x4RadioButton;
         private System.Windows.Forms.GroupBox gridGroupBox;
         private System.Windows.Forms.Button resetGameButton;
         private System.Windows.Forms.Button cheatAnswerButton;
@@ -324,6 +350,8 @@
         private System.Windows.Forms.RadioButton manualEntryGameMode;
         private System.Windows.Forms.Button checkGridButton;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RadioButton sudokuGrid25x25RadioButton;
+        private System.Windows.Forms.RadioButton sudokuGrid16x16RadioButton;
     }
 }
 

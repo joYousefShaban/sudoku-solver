@@ -17,7 +17,7 @@ namespace SudokuDektopClient
         public SudokuForm()
         {
             panelSwitch = true;
-            random=new Random();
+            random = new Random();
             InitializeComponent();
             InitializeSudokuGame(9);
         }
@@ -60,20 +60,20 @@ namespace SudokuDektopClient
         }
 
         #region ChangeGridSize
-        private void SudokuGrid9x9_CheckedChanged(object sender, EventArgs e)
+        private void SudokuGrid9x9RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (sudokuGrid9x9.Checked)
+            if (sudokuGrid9x9RadioButton.Checked)
             {
                 ResetUIElements();
                 InitializeSudokuGame(9);
-                sudokuPanel.Location = new Point(32,  49);
+                sudokuPanel.Location = new Point(32, 49);
                 sudokuPanel.Size = new Size(360, 360);
             }
         }
 
-        private void SudokuGrid4x4_CheckedChanged(object sender, EventArgs e)
+        private void SudokuGrid4x4RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (sudokuGrid4x4.Checked)
+            if (sudokuGrid4x4RadioButton.Checked)
             {
                 ResetUIElements();
                 InitializeSudokuGame(4);
@@ -179,6 +179,7 @@ namespace SudokuDektopClient
             {
                 numsLeft = new List<char> { '1', '2', '3', '4' };
             }
+            //Add the set of gridSize if there's any other grids than 9 and 4
 
             while (numsLeft.Count > 0)
             {
@@ -284,15 +285,6 @@ namespace SudokuDektopClient
             }
         }
 
-        private void ClearGridCells()
-        {
-            foreach (var cell in gridCells)
-            {
-                cell.CorrectAnswer = default;
-                cell.Clear();
-            }
-        }
-
         #endregion
 
         #region UIElementsHandling
@@ -328,6 +320,8 @@ namespace SudokuDektopClient
         {
             checkGridButton.Enabled = !checkGridButton.Enabled;
             sudokuPanel.Enabled = !sudokuPanel.Enabled;
+            gameModeGroupBox.Enabled = !gameModeGroupBox.Enabled;
+            resetGameButton.Enabled = !resetGameButton.Enabled;
         }
 
         private void ResetUIElements()
@@ -349,7 +343,7 @@ namespace SudokuDektopClient
             checkButton.Enabled = true;
             checkGridButton.Enabled = true;
         }
-        
+
         #endregion
 
         #region Clicks/Presses
@@ -392,7 +386,7 @@ namespace SudokuDektopClient
             }
             else
             {
-                MessageBox.Show("Please fix your hints since they are invalid.");
+                MessageBox.Show("Please fix your entries since they are invalid. \n Make sure that the grid is not empty and it applies sudoku rules!");
             }
         }
 
@@ -411,8 +405,8 @@ namespace SudokuDektopClient
 
         private void ResetGameButton_Click(object sender, EventArgs e)
         {
-            ClearGridCells();
-            StartManualGameMode();
+            ResetUIElements();
+            InitializeSudokuGame(gridSize);
         }
 
         private void CreateGameButton_Click(object sender, EventArgs e)
@@ -426,6 +420,7 @@ namespace SudokuDektopClient
             else
             {
                 StartLevelGameMode();
+                MessageBox.Show("Game started! Good luck");
             }
         }
 
