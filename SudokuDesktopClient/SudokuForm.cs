@@ -203,23 +203,32 @@ namespace SudokuDektopClient
         #region Validations
 
 
-        private bool ValidateSudoku()
+        private bool ValidatePreManualEnteredGrid()
         {
             bool hasNonEmptyCell = false; // Flag to track if there is at least one non-empty cell
+            var wrongCells = new List<SudokuCell>();
 
             foreach (var cell in gridCells)
             {
                 if (cell.Text != string.Empty)
                 {
+                    cell.ForeColor = SystemColors.ControlDarkDark;
                     hasNonEmptyCell = true;
                     if (cell.Text[0] > gridSize.ToString()[0] || !IsCellValid(cell.Text[0], cell.X, cell.Y))
-                        return false;
+                        wrongCells.Add(cell);
                 }
             }
+
+            if (wrongCells.Any())
+            {
+                wrongCells.ForEach(x => x.ForeColor = Color.Red);
+                return false;
+            }
+
             return hasNonEmptyCell; // Return false if all cells are empty, true otherwise
         }
 
-        private void ValidateSudokuWithCorrectAnswers()
+        private void ValidateSudoku()
         {
             var wrongCells = new List<SudokuCell>();
 
@@ -377,7 +386,7 @@ namespace SudokuDektopClient
 
         private void CheckGridButton_Click(object sender, EventArgs e)
         {
-            if (ValidateSudoku() && SolveSudoku(0, -1))
+            if (ValidatePreManualEnteredGrid() && SolveSudoku(0, -1))
             {
                 PreManualSwitchUIElements();
                 LockUserDefinedGrid();
@@ -386,13 +395,13 @@ namespace SudokuDektopClient
             }
             else
             {
-                MessageBox.Show("Please fix your entries since they are invalid. \n Make sure that the grid is not empty and it applies sudoku rules!");
+                MessageBox.Show("Please fix your entries since they are invalid. \nMake sure that the grid is not empty and it applies sudoku rules!");
             }
         }
 
         private void CheckButton_Click(object sender, EventArgs e)
         {
-            ValidateSudokuWithCorrectAnswers();
+            ValidateSudoku();
         }
 
         private void ClearInputButton_Click(object sender, EventArgs e)
@@ -415,7 +424,7 @@ namespace SudokuDektopClient
             if (manualEntryGameMode.Checked)
             {
                 PreManualSwitchUIElements();
-                MessageBox.Show("Please manually place the question input/token in each cell");
+                MessageBox.Show("Please fill the question hint cells");
             }
             else
             {
