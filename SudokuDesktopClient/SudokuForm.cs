@@ -66,6 +66,8 @@ namespace SudokuDektopClient
             {
                 ResetUIElements();
                 InitializeSudokuGame(9);
+                sudokuPanel.Location = new Point(32,  49);
+                sudokuPanel.Size = new Size(360, 360);
             }
         }
 
@@ -75,6 +77,8 @@ namespace SudokuDektopClient
             {
                 ResetUIElements();
                 InitializeSudokuGame(4);
+                sudokuPanel.Location = new Point(122, 139);
+                sudokuPanel.Size = new Size(200, 200);
             }
         }
         #endregion
