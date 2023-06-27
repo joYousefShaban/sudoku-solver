@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SudokuForm));
             this.sudokuPanel = new System.Windows.Forms.Panel();
-            this.createGameButton = new System.Windows.Forms.Button();
+            this.StartButton = new System.Windows.Forms.Button();
             this.checkButton = new System.Windows.Forms.Button();
             this.clearInputButton = new System.Windows.Forms.Button();
             this.beginnerGameMode = new System.Windows.Forms.RadioButton();
@@ -47,8 +48,8 @@
             this.gameModeGroupBox = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.manualEntryGameMode = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.checkGridButton = new System.Windows.Forms.Button();
+            this.Entry = new System.Windows.Forms.Label();
+            this.checkEntryButton = new System.Windows.Forms.Button();
             this.gridGroupBox.SuspendLayout();
             this.gameModeGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -59,40 +60,39 @@
             this.sudokuPanel.Location = new System.Drawing.Point(32, 49);
             this.sudokuPanel.Margin = new System.Windows.Forms.Padding(2);
             this.sudokuPanel.Name = "sudokuPanel";
-            this.sudokuPanel.Size = new System.Drawing.Size(360, 360);
+            this.sudokuPanel.Size = new System.Drawing.Size(500, 500);
             this.sudokuPanel.TabIndex = 0;
             // 
-            // createGameButton
+            // StartButton
             // 
-            this.createGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createGameButton.Location = new System.Drawing.Point(0, 166);
-            this.createGameButton.Margin = new System.Windows.Forms.Padding(2);
-            this.createGameButton.Name = "createGameButton";
-            this.createGameButton.Size = new System.Drawing.Size(155, 56);
-            this.createGameButton.TabIndex = 1;
-            this.createGameButton.Text = "Create Game";
-            this.createGameButton.UseVisualStyleBackColor = true;
-            this.createGameButton.Click += new System.EventHandler(this.CreateGameButton_Click);
+            this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StartButton.Location = new System.Drawing.Point(0, 166);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(2);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(155, 56);
+            this.StartButton.TabIndex = 1;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // checkButton
             // 
-            this.checkButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.checkButton.BackColor = System.Drawing.SystemColors.Control;
             this.checkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkButton.ForeColor = System.Drawing.Color.ForestGreen;
-            this.checkButton.Location = new System.Drawing.Point(273, 427);
+            this.checkButton.Location = new System.Drawing.Point(413, 559);
             this.checkButton.Margin = new System.Windows.Forms.Padding(2);
             this.checkButton.Name = "checkButton";
             this.checkButton.Size = new System.Drawing.Size(119, 70);
             this.checkButton.TabIndex = 2;
             this.checkButton.Text = "Check";
-            this.checkButton.UseVisualStyleBackColor = false;
-            this.checkButton.Visible = false;
+            this.checkButton.UseVisualStyleBackColor = true;
             this.checkButton.Click += new System.EventHandler(this.CheckButton_Click);
             // 
             // clearInputButton
             // 
             this.clearInputButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearInputButton.Location = new System.Drawing.Point(155, 427);
+            this.clearInputButton.Location = new System.Drawing.Point(231, 559);
             this.clearInputButton.Margin = new System.Windows.Forms.Padding(2);
             this.clearInputButton.Name = "clearInputButton";
             this.clearInputButton.Size = new System.Drawing.Size(114, 33);
@@ -184,7 +184,7 @@
             // 
             this.cheatAnswerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cheatAnswerButton.ForeColor = System.Drawing.Color.Crimson;
-            this.cheatAnswerButton.Location = new System.Drawing.Point(32, 427);
+            this.cheatAnswerButton.Location = new System.Drawing.Point(32, 559);
             this.cheatAnswerButton.Margin = new System.Windows.Forms.Padding(2);
             this.cheatAnswerButton.Name = "cheatAnswerButton";
             this.cheatAnswerButton.Size = new System.Drawing.Size(119, 70);
@@ -200,7 +200,7 @@
             this.gridGroupBox.Controls.Add(this.label2);
             this.gridGroupBox.Controls.Add(this.sudokuGrid9x9RadioButton);
             this.gridGroupBox.Controls.Add(this.sudokuGrid4x4RadioButton);
-            this.gridGroupBox.Location = new System.Drawing.Point(402, 61);
+            this.gridGroupBox.Location = new System.Drawing.Point(563, 110);
             this.gridGroupBox.Name = "gridGroupBox";
             this.gridGroupBox.Size = new System.Drawing.Size(156, 95);
             this.gridGroupBox.TabIndex = 11;
@@ -209,32 +209,32 @@
             // sudokuGrid25x25RadioButton
             // 
             this.sudokuGrid25x25RadioButton.AutoSize = true;
-            this.sudokuGrid25x25RadioButton.Enabled = false;
             this.sudokuGrid25x25RadioButton.Location = new System.Drawing.Point(91, 59);
             this.sudokuGrid25x25RadioButton.Name = "sudokuGrid25x25RadioButton";
             this.sudokuGrid25x25RadioButton.Size = new System.Drawing.Size(54, 17);
             this.sudokuGrid25x25RadioButton.TabIndex = 11;
             this.sudokuGrid25x25RadioButton.Text = "25x25";
             this.sudokuGrid25x25RadioButton.UseVisualStyleBackColor = true;
+            this.sudokuGrid25x25RadioButton.CheckedChanged += new System.EventHandler(this.SudokuGrid25x25RadioButton_CheckedChanged);
             // 
             // sudokuGrid16x16RadioButton
             // 
             this.sudokuGrid16x16RadioButton.AutoSize = true;
-            this.sudokuGrid16x16RadioButton.Enabled = false;
             this.sudokuGrid16x16RadioButton.Location = new System.Drawing.Point(23, 59);
             this.sudokuGrid16x16RadioButton.Name = "sudokuGrid16x16RadioButton";
             this.sudokuGrid16x16RadioButton.Size = new System.Drawing.Size(54, 17);
             this.sudokuGrid16x16RadioButton.TabIndex = 10;
             this.sudokuGrid16x16RadioButton.Text = "16x16";
             this.sudokuGrid16x16RadioButton.UseVisualStyleBackColor = true;
+            this.sudokuGrid16x16RadioButton.CheckedChanged += new System.EventHandler(this.SudokuGrid16x16RadioButton_CheckedChanged);
             // 
             // resetGameButton
             // 
             this.resetGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetGameButton.Location = new System.Drawing.Point(155, 464);
+            this.resetGameButton.Location = new System.Drawing.Point(231, 596);
             this.resetGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.resetGameButton.Name = "resetGameButton";
-            this.resetGameButton.Size = new System.Drawing.Size(115, 33);
+            this.resetGameButton.Size = new System.Drawing.Size(114, 33);
             this.resetGameButton.TabIndex = 12;
             this.resetGameButton.Text = "Reset Game";
             this.resetGameButton.UseVisualStyleBackColor = true;
@@ -244,14 +244,14 @@
             // 
             this.gameModeGroupBox.Controls.Add(this.label4);
             this.gameModeGroupBox.Controls.Add(this.label1);
-            this.gameModeGroupBox.Controls.Add(this.createGameButton);
+            this.gameModeGroupBox.Controls.Add(this.StartButton);
             this.gameModeGroupBox.Controls.Add(this.manualEntryGameMode);
             this.gameModeGroupBox.Controls.Add(this.beginnerGameMode);
-            this.gameModeGroupBox.Controls.Add(this.label3);
+            this.gameModeGroupBox.Controls.Add(this.Entry);
             this.gameModeGroupBox.Controls.Add(this.intermediateGameMode);
             this.gameModeGroupBox.Controls.Add(this.advancedGameMode);
             this.gameModeGroupBox.Enabled = false;
-            this.gameModeGroupBox.Location = new System.Drawing.Point(402, 175);
+            this.gameModeGroupBox.Location = new System.Drawing.Point(563, 285);
             this.gameModeGroupBox.Name = "gameModeGroupBox";
             this.gameModeGroupBox.Size = new System.Drawing.Size(156, 223);
             this.gameModeGroupBox.TabIndex = 0;
@@ -275,49 +275,51 @@
             this.manualEntryGameMode.Location = new System.Drawing.Point(10, 52);
             this.manualEntryGameMode.Margin = new System.Windows.Forms.Padding(2);
             this.manualEntryGameMode.Name = "manualEntryGameMode";
-            this.manualEntryGameMode.Size = new System.Drawing.Size(87, 17);
+            this.manualEntryGameMode.Size = new System.Drawing.Size(71, 17);
             this.manualEntryGameMode.TabIndex = 5;
             this.manualEntryGameMode.TabStop = true;
-            this.manualEntryGameMode.Text = "Manual Entry";
+            this.manualEntryGameMode.Text = "Grid Entry";
             this.manualEntryGameMode.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // Entry
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, -5);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(123, 25);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "GameMode";
+            this.Entry.AutoSize = true;
+            this.Entry.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Entry.Location = new System.Drawing.Point(10, -5);
+            this.Entry.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Entry.Name = "Entry";
+            this.Entry.Size = new System.Drawing.Size(62, 25);
+            this.Entry.TabIndex = 5;
+            this.Entry.Text = "Entry";
             // 
-            // checkGridButton
+            // checkEntryButton
             // 
-            this.checkGridButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkGridButton.ForeColor = System.Drawing.Color.ForestGreen;
-            this.checkGridButton.Location = new System.Drawing.Point(274, 427);
-            this.checkGridButton.Margin = new System.Windows.Forms.Padding(2);
-            this.checkGridButton.Name = "checkGridButton";
-            this.checkGridButton.Size = new System.Drawing.Size(119, 70);
-            this.checkGridButton.TabIndex = 13;
-            this.checkGridButton.Text = "Check Grid";
-            this.checkGridButton.UseVisualStyleBackColor = true;
-            this.checkGridButton.Click += new System.EventHandler(this.CheckGridButton_Click);
+            this.checkEntryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkEntryButton.ForeColor = System.Drawing.Color.ForestGreen;
+            this.checkEntryButton.Location = new System.Drawing.Point(413, 559);
+            this.checkEntryButton.Margin = new System.Windows.Forms.Padding(2);
+            this.checkEntryButton.Name = "checkEntryButton";
+            this.checkEntryButton.Size = new System.Drawing.Size(119, 70);
+            this.checkEntryButton.TabIndex = 13;
+            this.checkEntryButton.Text = "Check Entry";
+            this.checkEntryButton.UseVisualStyleBackColor = true;
+            this.checkEntryButton.Visible = false;
+            this.checkEntryButton.Click += new System.EventHandler(this.CheckEntryButton_Click);
             // 
             // SudokuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 512);
-            this.Controls.Add(this.checkGridButton);
+            this.ClientSize = new System.Drawing.Size(757, 659);
+            this.Controls.Add(this.checkButton);
+            this.Controls.Add(this.checkEntryButton);
             this.Controls.Add(this.cheatAnswerButton);
             this.Controls.Add(this.resetGameButton);
             this.Controls.Add(this.gridGroupBox);
             this.Controls.Add(this.clearInputButton);
-            this.Controls.Add(this.checkButton);
             this.Controls.Add(this.sudokuPanel);
             this.Controls.Add(this.gameModeGroupBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SudokuForm";
             this.Text = "Sudoku";
@@ -332,7 +334,7 @@
         #endregion
 
         private System.Windows.Forms.Panel sudokuPanel;
-        private System.Windows.Forms.Button createGameButton;
+        private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button checkButton;
         private System.Windows.Forms.Button clearInputButton;
         private System.Windows.Forms.RadioButton beginnerGameMode;
@@ -346,9 +348,9 @@
         private System.Windows.Forms.Button resetGameButton;
         private System.Windows.Forms.Button cheatAnswerButton;
         private System.Windows.Forms.GroupBox gameModeGroupBox;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label Entry;
         private System.Windows.Forms.RadioButton manualEntryGameMode;
-        private System.Windows.Forms.Button checkGridButton;
+        private System.Windows.Forms.Button checkEntryButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton sudokuGrid25x25RadioButton;
         private System.Windows.Forms.RadioButton sudokuGrid16x16RadioButton;
