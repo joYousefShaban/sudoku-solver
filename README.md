@@ -17,27 +17,38 @@ Rather than it allowing different grid sizes than the typical 9x9 grid, **Sukudo
 - Provides a user-friendly graphical interface.
 - Future-proof and highly scalable code
 
-## Prerequisites
+## System Architecture
+
+The system consists of a website and an application client, both connected to a server supporting a RESTful API. The website and application client individually communicate with the server-side components through HTTP requests, enabling seamless data exchange and interaction between each client and the server.
+
+>![Swagger.png](Assets/Swagger.png)
+>Figure 1.0
+
+>**Warning:**
+>Currently **SudokuWebsiteClient** and **SudokuServer** are still in development
+
+## Architucture
 
 .NET Core 7.0 for website and API
 
 .NET Framework 4.8 for application
 
 ## Getting Started
+For release access, you could simply access the folder "release" in the root directory of this repository; otherwise, you could anytime debug the program as follows:
 
 1. Clone the repository: `git clone https://github.com/joYousefShaban/sudoku-solver/`
 2. Navigate to the solution file `SudokuDesktopClient.sln` in Visual Studio.
 3. Build the solution to restore the NuGet packages and compile the project.
 4. Run the application by clicking the "Start" button in Visual Studio or pressing `F5`.
 >![StartUp.png](Assets/StartUp.png)
+>Figure 1.1
+
 >**Warning:**
 >Currently **SudokuWebsiteClient** and **SudokuServer** are still in development
->
->Figure 1.1
 
     Tip: You can run multiple projects (two or more) at the same time by doing the following:
 
-     right clicking on the sudoko-solver solution in the solution explorer => properties => common properties tab => startup project tab => then choose the radio button "Multiple Startup Projects".
+    Right clicking on the sudoko-solver solution in the solution explorer => properties => common properties tab => startup project tab => then choose the radio button "Multiple Startup Projects".
 
 
 
@@ -70,34 +81,32 @@ Hence, there are 1,440 possible Sudoku combinations for a 4x4 grid.
 
 ## Usage
 1. Decide the launch behaviour for the program, in this case, it will be SudokuDesktopClient:
-    >![SudokuWindow.png](Assets/SudokuWindow.png)
-    >Figure 1.1
 2. Launch the Sudoku Desktop Client application.
-    >![ChooseGrid.png](Assets/ChooseGrid.png)
-    >Figure 1.2
+    ![SudokuWindow.png](Assets/SudokuWindow.png)
+    Figure 1.2
 3. Select the desired grid size (4x4, 9x9, 16x16, 25x25).
-    >![ChooseEntry.png](Assets/ChooseEntry.png)
-    >Figure 1.3
+    ![ChooseGrid.png](Assets/ChooseGrid.png)
+    Figure 1.3
 4. Choose the game mode (Manual, Beginner, or Intermediate).
-    >![GameStart.png](Assets/GameStart.png)
-    >Figure 1.4
+    ![ChooseEntry.png](Assets/ChooseEntry.png)
+    Figure 1.4
 5. Start playing the Sudoku puzzle using the provided interface:
    - For Manual Game Mode, click on the cells to enter your own values.
-   >![SudokuManualMode.png](Assets/SudokuManualMode.png)
-    >Figure 1.5
+    ![SudokuManualMode.png](Assets/SudokuManualMode.png)
+    Figure 1.5
    - For Beginner and Intermediate Game Modes, the puzzle board will be partially filled with random hints.
-   >![MidGameSudoku.png](Assets/MidGameSudoku.png)
-    >Figure 1.6
+    ![GameStart.png](Assets/GameStart.png)
+    Figure 1.6
 6. Use the provided buttons to check your entries, clear the input cells, or reveal the correct answer for a cell (cheat mode).
-    >![ChatGrid.png](Assets/CheatGrid.png)
-    >Figure 1.7
+    ![MidGameSudoku.png](Assets/MidGameSudoku.png)
+    Figure 1.7
 7. Once you have filled in all the cells, click the "Check" button to validate your solution.
-    >![SudokuCheck.png](Assets/SudokuCheck.png)
-    >Figure 1.8
+    ![SudokuCheck.png](Assets/SudokuCheck.png)
+    Figure 1.8
 8. A message will be displayed indicating whether the puzzle has been solved successfully.
-    >![PostGame.png](Assets/PostGame.png)
-    >![PostGameSolved.png](Assets/PostGameSolved.png)
-    >Figures 1.9 and 1.10
+    ![PostGame.png](Assets/PostGame.png)
+    ![PostGameSolved.png](Assets/PostGameSolved.png)
+    Figures 1.9 and 1.10
 
 > **Note**
 > The grid of 25x25 is already developed, although due to the large grid size of the puzzle, the computational power will be high; hence, this size option is turned off
